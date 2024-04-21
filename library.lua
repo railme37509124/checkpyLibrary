@@ -254,3 +254,5 @@ function library:CreateMainWindow(args)
 	
 	return MainWindow
 end
+
+return library
