@@ -173,11 +173,16 @@ function library:CreateMainWindow(args)
 			TextButton.TextSize = 19.000
 			TextButton.TextXAlignment = Enum.TextXAlignment.Left
 			
-			TextButton.MouseButton1Click:Connect(function()
-				OptionsButton.Enabled = not OptionsButton.Enabled
+			function OptionsButton.ToggleButton(value)
+				OptionsButton.Enabled = value
 				TextButton.TextColor3 = OptionsButton.Enabled and Color3.fromRGB(213, 213, 213) or Color3.fromRGB(161, 161, 161)
 				TextButton.BackgroundColor3 = OptionsButton.Enabled and Color3.fromRGB(31, 31, 31) or Color3.fromRGB(21, 21, 21)
 				args.Callback(OptionsButton.Enabled)
+			end
+			
+			TextButton.MouseButton1Click:Connect(function()
+				OptionsButton.Enabled = not OptionsButton.Enabled
+				OptionsButton.ToggleButton(OptionsButton.Enabled)
 			end)
 			
 			return OptionsButton
@@ -249,5 +254,3 @@ function library:CreateMainWindow(args)
 	
 	return MainWindow
 end
-
-return library
