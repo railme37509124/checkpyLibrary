@@ -1,4 +1,4 @@
-local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/checkpyLibrary/33c56d674b69e4d7028d079290ab751ce9361891/library.lua", true))()
+local library = loadstring(game:HttpGet("https://raw.githubusercontent.com/railme37509124/checkpyLibrary/main/library.lua", true))()
 
 library.Objects.MainWindow = library:CreateMainWindow({Name = "checkpy"})
 
