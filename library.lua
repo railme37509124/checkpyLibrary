@@ -16,6 +16,7 @@ function library:CreateMainWindow(args)
 	MainWindow.checkpy.Name = "checkpy"
 	MainWindow.checkpy.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	MainWindow.checkpy.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	MainWindow.checkpy.ResetOnSpawn = false
 
 	checkpyMain.Name = "checkpyMain"
 	checkpyMain.Parent = MainWindow.checkpy
