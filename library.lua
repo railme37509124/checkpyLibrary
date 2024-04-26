@@ -29,6 +29,7 @@ function library:CreateMainWindow(args)
 	checkpyMain.BorderSizePixel = 0
 	checkpyMain.Position = UDim2.new(0, 15, 0, 15)
 	checkpyMain.Size = UDim2.new(0, 270, 0, 480)
+	if args.Drag then checkpyMain.Draggable = true checkpyMain.Active = true end
 	
 	TopBar.Name = "checkpyMain"
 	TopBar.Parent = checkpyMain
