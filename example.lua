@@ -10,22 +10,28 @@ library.Objects.MainWindow.Misc = library.Objects.MainWindow:CreateTab({
     Name = "Misc"
 })
 
-local Speed = {Value = 0}
-Speed = library.Objects.MainWindow.LocalPlayer:CreateTextBox({
-    Name = "Speed",
-    DefaultText = "Input Speed",
-    FocusLost = function(callback)
-        game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(callback)
-    end
+local Speed = {CurrentValue = 0}
+Speed = library.Objects.MainWindow.LocalPlayer:CreateSlider({
+	Name = "Speed",
+	DefaultAmount = 16,
+	Max = 375,
+	SliderColor = Color3.new(255, 255, 255),
+	SliderBackgroundColor = Color3.new(0.741176, 0.741176, 0.741176),
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(Value)
+	end
 })
 
-local JumpPower = {Value = 0}
-JumpPower = library.Objects.MainWindow.LocalPlayer:CreateTextBox({
-    Name = "JumpPower",
-    DefaultText = "Input JumpPower",
-    FocusLost = function(callback)
-        game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(callback)
-    end
+local JumpPower = {CurrentValue = 0}
+JumpPower = library.Objects.MainWindow.LocalPlayer:CreateSlider({
+	Name = "JumpPower",
+	DefaultAmount = 50,
+	Max = 250,
+	SliderColor = Color3.new(255, 255, 255),
+	SliderBackgroundColor = Color3.new(0.741176, 0.741176, 0.741176),
+	Callback = function(Value)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = tonumber(Value)
+	end
 })
 
 local InfiniteJump = {Enabled = false}
