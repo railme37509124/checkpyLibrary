@@ -103,3 +103,13 @@ PlaceIdTeleport = library.Objects.MainWindow.Misc:CreateTextBox({
         game:GetService("TeleportService"):Teleport(tonumber(callback), game.Players.LocalPlayer)
     end
 })
+
+library.Objects.MainWindow.Misc:CreateLabel({
+	Content = "made by uwy",
+	ClickToCopy = true,
+	CopyContent = "https://discord.gg/FJQXYfaAh2",
+	BackgroundColor3 = Color3.new(0, 0, 0),
+	TextColor3 = Color3.new(255, 255, 255),
+	TextAlignment = "Left",
+	Stroke = false,
+})
