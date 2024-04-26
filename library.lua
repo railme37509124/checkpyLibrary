@@ -290,6 +290,59 @@ function library:CreateMainWindow(args)
 			return OptionsButton
 		end
 		
+		function Tab:CreateLabel(args)
+			local Label = {
+				Text = "",
+				BackgroundColor3 = Color3.new(0, 0, 0),
+				ClickToCopy = false,
+				CopyContent = "",
+				Stroke = false,
+				StrokeColor = Color3.new(1, 1, 1),
+				StrokeTransparency = 1
+			}
+
+			local UIListLayout = Instance.new("UIListLayout")
+			local TextButton = Instance.new("TextButton")
+			local UIStroke = Instance.new("UIStroke")
+
+			UIListLayout.Parent = TabOptions
+			UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+			UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+			TextButton.Parent = TabOptions
+			TextButton.Active = false
+			TextButton.BackgroundColor3 = args.BackgroundColor3
+			TextButton.BackgroundTransparency = 1.000
+			TextButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			TextButton.BorderSizePixel = 0
+			TextButton.Position = UDim2.new(0.0407407396, 0, 0, 0)
+			TextButton.Selectable = false
+			TextButton.Size = UDim2.new(0.959259272, 0, 1, 0)
+			TextButton.Font = Enum.Font.Arial
+			TextButton.Text = " "..args.Content
+			TextButton.TextColor3 = args.TextColor3
+			TextButton.TextSize = 19.000
+			TextButton.TextXAlignment = Enum.TextXAlignment[args.TextAlignment]
+			
+			if args.Stroke then
+				UIStroke.Parent = TextButton
+				UIStroke.Color = args.StrokeColor
+				TextButton.TextStrokeTransparency = args.StrokeTransparency
+			else
+				UIStroke:Destroy()
+			end
+
+			TextButton.MouseButton1Click:Connect(function()
+				if args.ClickToCopy then
+					if game:GetService("RunService"):IsStudio() then return end
+					
+					setclipboard(args.CopyContent)
+				end
+			end)
+
+			return Label
+		end
+		
 		function Tab:CreateTextBox(args)
 			local TextBoxCreate = {}
 			TextBoxCreate.Value = ""
