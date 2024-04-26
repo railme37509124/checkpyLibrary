@@ -529,7 +529,8 @@ function library:CreateMainWindow(args)
 				local Value = math.floor(Percent*args.Max)
 				return Value
 			end
-
+			Slider.ChangeToValue(args.DefaultAmount)
+			
 			game:GetService("UserInputService").InputChanged:Connect(function()
 				if Slider.Dragging then
 					local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,-36)
