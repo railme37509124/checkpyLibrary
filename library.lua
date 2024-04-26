@@ -32,7 +32,7 @@ function library:CreateMainWindow(args)
 	if args.Drag then 
 		local UserInputService = game:GetService("UserInputService")
 		
-		local gui = checkpymain
+		local gui = checkpyMain
 		
 		local dragging
 		local dragInput
