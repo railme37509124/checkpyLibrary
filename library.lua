@@ -3,7 +3,7 @@ library.Objects = {}
 library.Keybinds = {}
 function library:CreateMainWindow(args)
 	local MainWindow = {}
-	
+
 	MainWindow.checkpy = Instance.new("ScreenGui")
 	local checkpyMain = Instance.new("Frame")
 	local TopBar = Instance.new("CanvasGroup")
@@ -31,25 +31,25 @@ function library:CreateMainWindow(args)
 	checkpyMain.Size = UDim2.new(0, 270, 0, 480)
 	if args.Drag then 
 		local UserInputService = game:GetService("UserInputService")
-		
+
 		local gui = checkpyMain
-		
+
 		local dragging
 		local dragInput
 		local dragStart
 		local startPos
-		
+
 		local function update(input)
 			local delta = input.Position - dragStart
 			gui.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
 		end
-		
+
 		gui.InputBegan:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
 				dragging = true
 				dragStart = input.Position
 				startPos = gui.Position
-		
+
 				input.Changed:Connect(function()
 					if input.UserInputState == Enum.UserInputState.End then
 						dragging = false
@@ -57,20 +57,20 @@ function library:CreateMainWindow(args)
 				end)
 			end
 		end)
-		
+
 		gui.InputChanged:Connect(function(input)
 			if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 				dragInput = input
 			end
 		end)
-		
+
 		UserInputService.InputChanged:Connect(function(input)
 			if input == dragInput and dragging then
 				update(input)
 			end
 		end)
 	end
-	
+
 	TopBar.Name = "checkpyMain"
 	TopBar.Parent = checkpyMain
 	TopBar.BorderColor3 = Color3.fromRGB(0, 0, 0)
@@ -100,7 +100,7 @@ function library:CreateMainWindow(args)
 	ContentHolder.ScrollBarImageTransparency = 1
 	ContentHolder.ScrollBarThickness = 0
 	ContentHolder.AutomaticCanvasSize = Enum.AutomaticSize.Y
-	
+
 	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(17, 49, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(16, 80, 255))}
 	UIGradient.Rotation = 65
 	UIGradient.Parent = TopBar
@@ -130,7 +130,7 @@ function library:CreateMainWindow(args)
 	TextLabel.TextSize = 14.000
 	TextLabel.TextWrapped = true
 	TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-	
+
 	UIListLayout.Parent = ContentHolder
 	UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
 	UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
@@ -160,7 +160,7 @@ function library:CreateMainWindow(args)
 	IndicatorThing2.TextSize = 14.000
 	IndicatorThing2.TextWrapped = true
 	IndicatorThing2.TextXAlignment = Enum.TextXAlignment.Center
-	
+
 	function MainWindow:BindModule(args)
 		local bind = Instance.new("TextLabel")
 		local bindcon
@@ -194,11 +194,11 @@ function library:CreateMainWindow(args)
 			end
 		end)
 	end
-	
+
 	function MainWindow:CreateTab(args)
 		local Tab = {}
 		Tab.Enabled = false
-		
+
 		local TabFrame = Instance.new("Frame")
 		local TextLabel = Instance.new("TextButton")
 		local TabOptions = Instance.new("Frame")
@@ -223,7 +223,7 @@ function library:CreateMainWindow(args)
 		TextLabel.TextSize = 19.000
 		TextLabel.TextXAlignment = Enum.TextXAlignment.Left
 		TextLabel.Text = args.Name
-		
+
 		TabOptions.Name = "TabOptions"
 		TabOptions.Parent = TabFrame
 		TabOptions.AnchorPoint = Vector2.new(0.5, 0)
@@ -234,7 +234,7 @@ function library:CreateMainWindow(args)
 		TabOptions.Size = UDim2.new(0.959259272, 0, 1, 0)
 		TabOptions.Visible = false
 		TabOptions.AutomaticSize = Enum.AutomaticSize.Y
-		
+
 		hoverIndi.Name = "hoverIndi"
 		hoverIndi.Parent = TextLabel
 		hoverIndi.AnchorPoint = Vector2.new(1, 0)
@@ -251,33 +251,33 @@ function library:CreateMainWindow(args)
 		hoverIndi.TextSize = 14.000
 		hoverIndi.TextWrapped = true
 		hoverIndi.Visible = false
-		
+
 		TextLabel.MouseButton1Click:Connect(function()
 			Tab.Enabled = not Tab.Enabled
 			TextLabel.TextColor3 = Tab.Enabled and Color3.fromRGB(213, 213, 213) or Color3.fromRGB(161, 161, 161)
 			TabFrame.BackgroundColor3 = Tab.Enabled and Color3.fromRGB(31, 31, 31) or Color3.fromRGB(21, 21, 21)
-			
+
 			for _, v in ContentHolder:GetChildren() do
 				if v:IsA("Frame") and v.Name ~= args.Name then
 					v.Visible = not Tab.Enabled
 				end
 			end
-			
+
 			for _, v in ContentHolder:FindFirstChild(args.Name):GetChildren() do
 				if v.Name == "TabOptions" then
 					v.Visible = Tab.Enabled
 				end
 			end
 		end)
-		
+
 		TextLabel.MouseEnter:Connect(function()
 			hoverIndi.Visible = true
 		end)
-		
+
 		TextLabel.MouseLeave:Connect(function()
 			hoverIndi.Visible = false
 		end)
-		
+
 		function Tab:CreateOptionsButton(args)
 			local OptionsButton = {Enabled = false, Keybind = nil, Name = ""}
 
@@ -302,35 +302,35 @@ function library:CreateMainWindow(args)
 			TextButton.TextColor3 = Color3.fromRGB(161, 161, 161)
 			TextButton.TextSize = 19.000
 			TextButton.TextXAlignment = Enum.TextXAlignment.Left
-			
+
 			function OptionsButton.ToggleButton(value)
 				OptionsButton.Enabled = value
 				TextButton.TextColor3 = OptionsButton.Enabled and Color3.fromRGB(213, 213, 213) or Color3.fromRGB(161, 161, 161)
 				TextButton.BackgroundColor3 = OptionsButton.Enabled and Color3.fromRGB(31, 31, 31) or Color3.fromRGB(21, 21, 21)
 				args.Callback(OptionsButton.Enabled)
 			end
-			
+
 			TextButton.MouseButton1Click:Connect(function()
 				OptionsButton.Enabled = not OptionsButton.Enabled
 				OptionsButton.ToggleButton(OptionsButton.Enabled)
 			end)
-			
+
 			TextButton.MouseButton2Click:Connect(function()
 				MainWindow:BindModule({ModuleName = args.Name, Module = OptionsButton})
 			end)
 
 			library.Keybinds[args.Name] = game:GetService("UserInputService").InputBegan:Connect(function(inp, gpe)
 				if gpe then return end
-				
+
 				if inp.KeyCode == OptionsButton.Keybind then
 					OptionsButton.Enabled = not OptionsButton.Enabled
 					OptionsButton.ToggleButton(OptionsButton.Enabled)
 				end
 			end)
-			
+
 			return OptionsButton
 		end
-		
+
 		function Tab:CreateLabel(args)
 			local Label = {
 				Text = "",
@@ -364,7 +364,7 @@ function library:CreateMainWindow(args)
 			TextButton.TextColor3 = args.TextColor3
 			TextButton.TextSize = 19.000
 			TextButton.TextXAlignment = Enum.TextXAlignment[args.TextAlignment]
-			
+
 			if args.Stroke then
 				UIStroke.Parent = TextButton
 				UIStroke.Color = args.StrokeColor
@@ -376,18 +376,18 @@ function library:CreateMainWindow(args)
 			TextButton.MouseButton1Click:Connect(function()
 				if args.ClickToCopy then
 					if game:GetService("RunService"):IsStudio() then return end
-					
+
 					setclipboard(args.CopyContent)
 				end
 			end)
 
 			return Label
 		end
-		
+
 		function Tab:CreateTextBox(args)
 			local TextBoxCreate = {}
 			TextBoxCreate.Value = ""
-			
+
 			local TextBox = Instance.new("Frame")
 			local TextBox_2 = Instance.new("TextBox")
 			local UICorner = Instance.new("UICorner")
@@ -437,23 +437,24 @@ function library:CreateMainWindow(args)
 			TextLabel.TextColor3 = Color3.fromRGB(161, 161, 161)
 			TextLabel.TextSize = 19.000
 			TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-			
+
 			TextBox_2.FocusLost:Connect(function()
 				args.FocusLost(TextBox_2.Text)
 			end)
-			
+
 			return TextBoxCreate
 		end
-		
+
 		function Tab:CreateSlider(args)
 			local Slider = {CurrentValue = args.DefaultAmount, Name = ""}
-			
+
 			local SliderF = Instance.new("Frame")
 			local SliderName = Instance.new("TextLabel")
 			local ActualSlider = Instance.new("Frame")
 			local UICornerA = Instance.new("UICorner")
 			local ss = Instance.new("TextButton")
 			local UICorner_2 = Instance.new("UICorner")
+			local SliderValue = Instance.new("TextLabel")
 
 			SliderF.Name = args.Name
 			SliderF.Parent = TabOptions
@@ -481,7 +482,7 @@ function library:CreateMainWindow(args)
 
 			ActualSlider.Name = "ActualSlider"
 			ActualSlider.Parent = SliderF
-			ActualSlider.BackgroundColor3 = args.SliderBackgroundColor
+			ActualSlider.BackgroundColor3 = args.SliderBackgroundColor or Color3.fromRGB(255, 255, 255)
 			ActualSlider.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ActualSlider.BorderSizePixel = 0
 			ActualSlider.Position = UDim2.new(0.0349035077, 0, 0.666666687, 0)
@@ -494,7 +495,7 @@ function library:CreateMainWindow(args)
 			ss.Parent = ActualSlider
 			ss.Active = false
 			ss.AnchorPoint = Vector2.new(0.5, 0.5)
-			ss.BackgroundColor3 = args.SliderColor
+			ss.BackgroundColor3 = args.SliderColor or Color3.fromRGB(189, 189, 189)
 			ss.BorderColor3 = Color3.fromRGB(0, 0, 0)
 			ss.BorderSizePixel = 0
 			ss.Position = UDim2.new(0, 0, 0.5, 0)
@@ -504,6 +505,21 @@ function library:CreateMainWindow(args)
 
 			UICorner_2.CornerRadius = UDim.new(1, 0)
 			UICorner_2.Parent = ss
+			
+			SliderValue.Name = "SliderValue"
+			SliderValue.Parent = SliderF
+			SliderValue.AnchorPoint = Vector2.new(1, 0.5)
+			SliderValue.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
+			SliderValue.BackgroundTransparency = 1.000
+			SliderValue.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			SliderValue.BorderSizePixel = 0
+			SliderValue.Position = UDim2.new(0.972972989, 0, 0.233000085, 0)
+			SliderValue.Size = UDim2.new(0.564999998, 0, 0.5, 0)
+			SliderValue.Font = args.SliderValueFont or Enum.Font.Arial
+			SliderValue.Text = args.DefaultAmount
+			SliderValue.TextColor3 = args.SliderValueTextColor3 or Color3.fromRGB(161, 161, 161)
+			SliderValue.TextSize = 19.000
+			SliderValue.TextXAlignment = Enum.TextXAlignment.Right
 
 			ss.MouseButton1Down:Connect(function()
 				Slider.Dragging = true
@@ -524,6 +540,7 @@ function library:CreateMainWindow(args)
 					local FinalValue = Slider.ChangeToValue(Slider.CurrentValue)
 
 					Slider.CurrentValue = FinalValue
+					SliderValue.Text = tostring(Slider.CurrentValue)
 					args.Callback(Slider.CurrentValue)
 				end
 			end)
@@ -533,14 +550,12 @@ function library:CreateMainWindow(args)
 					Slider.Dragging = false
 				end
 			end)
-			
+
 			return Slider
 		end
-		
+
 		return Tab
 	end
 
 	return MainWindow
 end
-
-return library
