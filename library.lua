@@ -594,7 +594,7 @@ function library:CreateMainWindow(args)
 			
 			if not args.Gradient then
 				SectionUIGradient:Destroy()
-				SectionTextLabel.Transparency = 0
+				SectionTextLabel.BackgroundTransparency = 0
 				Section.BackgroundTransparency = 1
 			end
 
