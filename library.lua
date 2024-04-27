@@ -1,3 +1,5 @@
+--if your script breaks with this, put it in a pcall!!11
+
 local library = {}
 library.Objects = {}
 library.Keybinds = {}
