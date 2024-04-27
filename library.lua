@@ -17,7 +17,7 @@ function library:CreateMainWindow(args)
 	local IndicatorThing2 = Instance.new("TextLabel")
 
 	MainWindow.checkpy.Name = "checkpy"
-	MainWindow.checkpy.Parent = MainWindow.checkpy.Parent = game.CoreGui
+	MainWindow.checkpy.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	MainWindow.checkpy.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	MainWindow.checkpy.ResetOnSpawn = false
 
@@ -594,11 +594,9 @@ function library:CreateMainWindow(args)
 			
 			if not args.Gradient then
 				SectionUIGradient:Destroy()
-				SectionTextLabel.BackgroundTransparency = 0
+				SectionTextLabel.Transparency = 0
 				Section.BackgroundTransparency = 1
 			end
-
-			return Section
 		end
 
 		return Tab
