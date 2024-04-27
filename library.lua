@@ -17,7 +17,7 @@ function library:CreateMainWindow(args)
 	local IndicatorThing2 = Instance.new("TextLabel")
 
 	MainWindow.checkpy.Name = "checkpy"
-	MainWindow.checkpy.Parent = MainWindow.checkpy.Parent = (game:GetService("RunService"):IsStudio() and game.Players.LocalPlayer:WaitForChild("PlayerGui") or game:WaitForChild("CoreGui"))
+	MainWindow.checkpy.Parent = MainWindow.checkpy.Parent = game.CoreGui
 	MainWindow.checkpy.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	MainWindow.checkpy.ResetOnSpawn = false
 
