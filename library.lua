@@ -17,7 +17,7 @@ function library:CreateMainWindow(args)
 	local IndicatorThing2 = Instance.new("TextLabel")
 
 	MainWindow.checkpy.Name = "checkpy"
-	MainWindow.checkpy.Parent = game.CoreGui
+	MainWindow.checkpy.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 	MainWindow.checkpy.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 	MainWindow.checkpy.ResetOnSpawn = false
 
@@ -444,6 +444,8 @@ function library:CreateMainWindow(args)
 
 			return TextBoxCreate
 		end
+		
+		
 
 		function Tab:CreateSlider(args)
 			local Slider = {CurrentValue = args.DefaultAmount, Name = ""}
@@ -530,7 +532,7 @@ function library:CreateMainWindow(args)
 				return Value
 			end
 			Slider.ChangeToValue(args.DefaultAmount)
-			
+
 			game:GetService("UserInputService").InputChanged:Connect(function()
 				if Slider.Dragging then
 					local MousePos = game:GetService("UserInputService"):GetMouseLocation()+Vector2.new(0,-36)
@@ -553,6 +555,48 @@ function library:CreateMainWindow(args)
 			end)
 
 			return Slider
+		end
+		
+
+		function Tab:CreateSection(args)
+			local Section = {Name = "", Gradient = false}
+			
+			local Section = Instance.new("Frame")
+			local SectionTextLabel = Instance.new("TextLabel")
+			local SectionUIGradient = Instance.new("UIGradient")
+			
+			Section.Name = args.Name
+			Section.Parent = TabOptions
+			Section.AnchorPoint = Vector2.new(0.5, 0.5)
+			Section.BackgroundColor3 = Color3.fromRGB(181, 181, 181)
+			Section.BorderColor3 = Color3.fromRGB(255, 255, 255)
+			Section.BorderSizePixel = 0
+			Section.Position = UDim2.new(-0.0510583222, 0, 0, 0)
+			Section.Size = UDim2.new(1, 0, 1, 0)
+
+			SectionTextLabel.Parent = Section
+			SectionTextLabel.AnchorPoint = Vector2.new(0.5, 0.5)
+			SectionTextLabel.BackgroundColor3 = (args.Gradient and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(22, 22, 22))
+			SectionTextLabel.BackgroundTransparency = 1.000
+			SectionTextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+			SectionTextLabel.BorderSizePixel = 0
+			SectionTextLabel.Position = UDim2.new(0.5, 0, 0.5, 0)
+			SectionTextLabel.Size = UDim2.new(1, 0, 1, 0)
+			SectionTextLabel.ZIndex = 2
+			SectionTextLabel.Font = Enum.Font.Gotham
+			SectionTextLabel.Text = args.Name
+			SectionTextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+			SectionTextLabel.TextSize = 14.000
+
+			SectionUIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(17, 49, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(16, 80, 255))}
+			SectionUIGradient.Rotation = 78
+			SectionUIGradient.Parent = Section
+			
+			if not args.Gradient then
+				SectionUIGradient:Destroy()
+				SectionTextLabel.Transparency = 0
+				Section.BackgroundTransparency = 1
+			end
 		end
 
 		return Tab
